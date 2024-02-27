@@ -4,7 +4,7 @@ dotenv.config();
 import express from 'express';
 import axios from 'axios';
 import path from 'path';
-import { mnemonicToAccount } from 'viem/accounts';
+import {  privateKeyToAccount } from 'viem/accounts';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,10 +12,11 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-if (typeof process.env.FARCASTER_DEVELOPER_MNEMONIC === 'undefined') {
-  throw new Error('FARCASTER_DEVELOPER_MNEMONIC is not defined');
+if (typeof process.env.FARCASTER_DEVELOPER_PK === 'undefined') {
+  throw new Error('FARCASTER_DEVELOPER_PK is not defined');
 }
-const FARCASTER_DEVELOPER_MNEMONIC = process.env.FARCASTER_DEVELOPER_MNEMONIC;
+
+const FARCASTER_DEVELOPER_PK = process.env.FARCASTER_DEVELOPER_PK;
 
 if (typeof process.env.FARCASTER_DEVELOPER_FID === 'undefined') {
   throw new Error('FARCASTER_DEVELOPER_FID is not defined');
@@ -132,7 +133,7 @@ const generate_signature = async function (public_key: string) {
     { name: 'deadline', type: 'uint256' },
   ];
 
-  const account = mnemonicToAccount(FARCASTER_DEVELOPER_MNEMONIC);
+  const account = privateKeyToAccount(`0x${FARCASTER_DEVELOPER_PK}`);
 
   // Generates an expiration date for the signature
   // e.g. 1693927665
