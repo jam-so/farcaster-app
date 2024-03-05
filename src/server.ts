@@ -51,6 +51,10 @@ app.post('/api/signer', async (req, res) => {
       createSignerResponse.data.public_key,
     );
 
+    console.log("deadline", deadline)
+    console.log("signature", signature)
+    console.log("FARCASTER_DEVELOPER_FID", FARCASTER_DEVELOPER_FID)
+
     const signedKeyResponse = await axios.post(
       'https://api.neynar.com/v2/farcaster/signer/signed_key',
       {
