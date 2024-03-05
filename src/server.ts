@@ -42,6 +42,11 @@ app.post('/api/signer', async (req, res) => {
       },
     );
 
+    console.log("neynar_api_key", process.env.NEYNAR_API_KEY)
+
+    console.log('createSignerResponse', createSignerResponse.data)
+
+
     const { deadline, signature } = await generate_signature(
       createSignerResponse.data.public_key,
     );
